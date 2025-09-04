@@ -1,8 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { File } from "../lib/mock-data"
-import { mockFiles } from "../lib/mock-data"
+import { mockFiles, type File } from "../lib/mock-data"
 import { Folder, FileIcon, Upload, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "~/components/ui/button"
@@ -65,7 +64,10 @@ export default function GoogleDriveClone() {
               </div>
             ))}
           </div>
-          <Button onClick={handleUpload} className="bg-blue-600 text-white hover:bg-blue-700">
+          <Button
+            onClick={handleUpload}
+            className="bg-blue-600 text-white hover:bg-blue-700"
+          >
             <Upload className="mr-2" size={20} />
             Upload
           </Button>
