@@ -19,7 +19,7 @@ export default function GoogleDriveClone() {
   }
 
   const getBreadcrumbs = () => {
-    const breadcrumbs = []
+    const breadcrumbs: File[] = []
     let currentId = currentFolder
 
     while (currentId !== null) {
@@ -42,6 +42,7 @@ export default function GoogleDriveClone() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
       <div className="max-w-6xl mx-auto">
+        {/* Header with breadcrumbs and upload button */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
             <Button
@@ -51,7 +52,7 @@ export default function GoogleDriveClone() {
             >
               My Drive
             </Button>
-            {getBreadcrumbs().map((folder, index) => (
+            {getBreadcrumbs().map((folder) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Button
@@ -69,6 +70,8 @@ export default function GoogleDriveClone() {
             Upload
           </Button>
         </div>
+
+        {/* File list */}
         <div className="bg-gray-800 rounded-lg shadow-xl">
           <div className="px-6 py-4 border-b border-gray-700">
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
@@ -79,7 +82,10 @@ export default function GoogleDriveClone() {
           </div>
           <ul>
             {getCurrentFiles().map((file) => (
-              <li key={file.id} className="px-6 py-4 border-b border-gray-700 hover:bg-gray-750">
+              <li
+                key={file.id}
+                className="px-6 py-4 border-b border-gray-700 hover:bg-gray-700"
+              >
                 <div className="grid grid-cols-12 gap-4 items-center">
                   <div className="col-span-6 flex items-center">
                     {file.type === "folder" ? (
@@ -91,14 +97,21 @@ export default function GoogleDriveClone() {
                         {file.name}
                       </button>
                     ) : (
-                      <Link href={file.url || "#"} className="flex items-center text-gray-100 hover:text-blue-400">
+                      <Link
+                        href={file.url ?? "#"}
+                        className="flex items-center text-gray-100 hover:text-blue-400"
+                      >
                         <FileIcon className="mr-3" size={20} />
                         {file.name}
                       </Link>
                     )}
                   </div>
-                  <div className="col-span-3 text-gray-400">{file.type === "folder" ? "Folder" : "File"}</div>
-                  <div className="col-span-3 text-gray-400">{file.type === "folder" ? "--" : "2 MB"}</div>
+                  <div className="col-span-3 text-gray-400">
+                    {file.type === "folder" ? "Folder" : "File"}
+                  </div>
+                  <div className="col-span-3 text-gray-400">
+                    {file.type === "folder" ? "--" : "2 MB"}
+                  </div>
                 </div>
               </li>
             ))}
@@ -108,4 +121,3 @@ export default function GoogleDriveClone() {
     </div>
   )
 }
-
